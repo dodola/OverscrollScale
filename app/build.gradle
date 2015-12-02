@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
-
+repositories {
+    maven {
+        url  "http://dl.bintray.com/dodola/maven"
+    }
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -24,5 +28,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile project(':listviewext')
+    compile 'com.dodola:listviewext:1.0'
 }

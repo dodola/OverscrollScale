@@ -5,6 +5,18 @@ ListView overscroll scale
 
 ##Use
 
+```groovy
+repositories {
+    maven {
+        url  "http://dl.bintray.com/dodola/maven"
+    }
+}
+dependencies {
+    compile 'com.dodola:listviewext:1.0'
+}
+
+```
+
 ```xml
   <com.dodola.listview.extlib.ListViewExt
         android:id="@+id/view"
