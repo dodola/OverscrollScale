@@ -24,30 +24,6 @@ public class ListViewExt extends ListView {
     protected int mDownMotionY;
     protected boolean mIsTouching;
 
-    private int mScrollState;
-
-    private OnScrollListener mScrollListener;
-    private OnScrollListener mScrollListenerWrapper = new OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-            if (mScrollListener != null) {
-                mScrollListener.onScrollStateChanged(view, scrollState);
-            }
-            mScrollState = scrollState;
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (mScrollListener != null) {
-                mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-            }
-        }
-    };
-
-    @Override
-    public void setOnScrollListener(OnScrollListener l) {
-        mScrollListener = l;
-    }
 
     @Override
     public void onTouchModeChanged(boolean isInTouchMode) {
@@ -73,7 +49,6 @@ public class ListViewExt extends ListView {
     private void init() {
         this.setOverScrollMode(OVER_SCROLL_NEVER);
         this.setFadingEdgeLength(0);
-        this.setOnScrollListener(mScrollListenerWrapper);
     }
 
 
@@ -118,10 +93,8 @@ public class ListViewExt extends ListView {
                     this.mLastY = y;
                     return true;
                 } else {
-                    if (mScrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {//TOUCH_MODE_SCROLL
-                        if (y != this.mLastY) {
-                            this.mLastY = y;
-                        }
+                    if (y != this.mLastY) {
+                        this.mLastY = y;
                     }
                 }
             }
