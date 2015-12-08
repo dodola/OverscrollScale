@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     //    compile 'com.dodola:listviewext:1.0'
     compile project(':listviewext')
+    compile 'com.android.support:recyclerview-v7:23.1.1'
 }

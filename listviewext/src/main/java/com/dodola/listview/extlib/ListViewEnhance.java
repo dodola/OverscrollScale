@@ -4,29 +4,27 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.animation.Interpolator;
 
 public class ListViewEnhance {
     private static final String TAG = ListViewEnhance.class.getName();
 
-    public static class BackEaseOutInterpolater implements Interpolator {
-        public float overshot = 0.0f;
-
-        public float getInterpolation(float t) {
-            float s = this.overshot == 0.0f ? 1.70158f : this.overshot;
-            t -= 1;
-            return ((t * t) * (((s + 1) * t) + s)) + 1;
-        }
-    }
-
-    public static class CircEaseOutInterpolator implements Interpolator {
-        public float getInterpolation(float input) {
-            input -= 1;
-            return (float) Math.sqrt((double) (1 - (input * input)));
-        }
-    }
+//    public static class BackEaseOutInterpolator implements Interpolator {
+//        public float overshot = 0.0f;
+//
+//        public float getInterpolation(float t) {
+//            float s = this.overshot == 0.0f ? 1.70158f : this.overshot;
+//            t -= 1;
+//            return ((t * t) * (((s + 1) * t) + s)) + 1;
+//        }
+//    }
+//
+//    public static class CircEaseOutInterpolator implements Interpolator {
+//        public float getInterpolation(float input) {
+//            input -= 1;
+//            return (float) Math.sqrt((double) (1 - (input * input)));
+//        }
+//    }
 
 
     public static void onTouchDown(ListViewExt listView, MotionEvent ev) {
@@ -123,7 +121,7 @@ public class ListViewEnhance {
             listView.mAnimatorSet = new AnimatorSet();
             ValueAnimator scaleBackAnimator = ValueAnimator.ofFloat(scaleY, 1);
             scaleBackAnimator.setDuration(400);
-            scaleBackAnimator.setInterpolator(new BackEaseOutInterpolater());
+            scaleBackAnimator.setInterpolator(new RecyclerViewEnhance.BackEaseOutInterpolator());
             scaleBackAnimator.addUpdateListener(new AnimatorUpdateListener() {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     listView.setScaleY((Float) animation.getAnimatedValue());
@@ -133,7 +131,7 @@ public class ListViewEnhance {
             if (listView.getScaleY() == 1) {
                 ValueAnimator scaleAnimator = ValueAnimator.ofFloat(1, scaleY);
                 scaleAnimator.setDuration(200);
-                scaleAnimator.setInterpolator(new CircEaseOutInterpolator());
+                scaleAnimator.setInterpolator(new RecyclerViewEnhance.CircEaseOutInterpolator());
                 scaleAnimator.addUpdateListener(new AnimatorUpdateListener() {
                     public void onAnimationUpdate(ValueAnimator animation) {
                         listView.setScaleY((Float) animation.getAnimatedValue());
@@ -165,6 +163,7 @@ public class ListViewEnhance {
             boolean isScrollAtTop;
             boolean isScrollAtBottom;
             boolean isShortList;//说明该列表没有填满屏幕
+
             int firstPosition = listView.getFirstVisiblePosition();
             int firstTop = listView.getChildAt(0).getTop();
             int lastBottom = listView.getChildAt(listView.getChildCount() - 1).getBottom();
